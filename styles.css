@@ -1,0 +1,89 @@
+/* ELDTrack shared styles. Layout: paper-logbook grid, interstate-shield navy/red, highway-gothic display type */
+:root{
+  --paper:#f6f7f4; --panel:#ffffff; --ink:#13233f; --muted:#56647a;
+  --grid:#b9cbe0; --grid-strong:#7f9cc0; --shield:#1d4c96; --accent:#c4202e;
+  --line:#dfe5ec; --ok:#1d7a4a; --warn:#b26b00; --bad:#c4202e; --on-accent:#ffffff;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0c1524; --panel:#13203a; --ink:#e7edf6; --muted:#9fb0c8;
+  --grid:#2a4266; --grid-strong:#4b6d9c; --shield:#7aa6ff; --accent:#ff5b66;
+  --line:#22324f; --ok:#4cc98a; --warn:#f0a63a; --bad:#ff5b66; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0c1524; --panel:#13203a; --ink:#e7edf6; --muted:#9fb0c8;
+  --grid:#2a4266; --grid-strong:#4b6d9c; --shield:#7aa6ff; --accent:#ff5b66;
+  --line:#22324f; --ok:#4cc98a; --warn:#f0a63a; --bad:#ff5b66; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+img{max-width:100%}
+[hidden]{display:none!important}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.02;text-wrap:balance;margin:0;letter-spacing:.005em}
+h1{font-size:clamp(2.5rem,6.2vw,4.4rem);font-weight:800;text-transform:uppercase}
+h2{font-size:clamp(1.9rem,4.2vw,2.9rem);font-weight:700;text-transform:uppercase}
+h3{font-size:1.4rem;font-weight:700}
+p{margin:0}
+a{color:var(--shield)}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.1rem;max-width:58ch}
+.caption{font-size:.85rem;color:var(--muted)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:var(--f-display);font-weight:800;font-size:1.6rem;text-transform:uppercase;letter-spacing:.02em}
+.brand b{color:var(--accent);font-weight:800}
+.shield{width:30px;height:32px;flex:none}
+.nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0}
+.nav ul a{color:var(--ink);text-decoration:none;font-weight:600}
+.nav ul a:hover,.nav ul a[aria-current="page"]{color:var(--accent)}
+@media (max-width:880px){.nav ul{display:none}}
+.demo-tabs{display:flex;gap:8px;flex-wrap:wrap;padding-block:0 10px}
+@media (min-width:881px){.demo-tabs{display:none}}
+.demo-tabs a{font-size:.85rem;font-weight:600;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:4px 12px;background:var(--panel)}
+.demo-tabs a[aria-current="page"]{border-color:var(--accent);color:var(--accent)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--f-display);font-weight:700;font-size:1.12rem;text-transform:uppercase;letter-spacing:.04em;padding:11px 20px;border-radius:4px;text-decoration:none;border:2px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.small{font-size:.95rem;padding:6px 12px}
+.btn:hover{filter:brightness(1.08)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--shield);outline-offset:2px}
+
+.demo-banner{background:var(--shield);color:#fff;font-size:.88rem;text-align:center;padding:6px 16px}
+.demo-banner a{color:#fff;font-weight:700}
+
+/* log grid card (shared by home + driver) */
+.logcard{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:14px;min-width:0}
+.gridwrap{overflow-x:auto}
+.gridwrap svg{display:block;width:100%;min-width:620px;height:auto}
+.clocks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:560px){.clocks{grid-template-columns:repeat(2,1fr)}}
+.clock{border:1px solid var(--line);border-radius:4px;padding:10px 12px;display:grid;gap:2px;background:var(--panel)}
+.clock .k{font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.clock .v{font-family:var(--f-mono);font-size:1.45rem;font-weight:600;font-variant-numeric:tabular-nums}
+.clock .bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+.clock .bar i{display:block;height:100%;background:var(--shield)}
+.clock.low .v{color:var(--warn)} .clock.low .bar i{background:var(--warn)}
+.clock.out .v{color:var(--bad)} .clock.out .bar i{background:var(--bad)}
+
+.pill{font-family:var(--f-mono);font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.pill.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.pill.bad{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.pill.info{background:color-mix(in srgb,var(--shield) 16%,transparent);color:var(--shield)}
+
+footer{padding-block:30px;border-top:1px solid var(--line);font-size:.92rem;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px}
+.lit{font-weight:700;color:var(--ink)}
+.lit a{color:var(--accent);text-decoration:none;border-bottom:2px solid var(--accent)}
+
+@media (prefers-reduced-motion:no-preference){
+  .trace-anim{stroke-dasharray:3000;stroke-dashoffset:3000;animation:draw 2.4s ease-out .3s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+}
