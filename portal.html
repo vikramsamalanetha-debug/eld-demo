@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ELDTrack Fleet Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+main{padding-block:32px 56px;display:grid;gap:28px}
+.intro{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:16px}
+.intro>div{display:grid;gap:8px;min-width:0}
+.intro h1{font-size:clamp(2rem,4.6vw,3.2rem)}
+.co{font-family:var(--f-mono);font-size:.85rem;color:var(--muted)}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:820px){.tiles{grid-template-columns:repeat(2,1fr)}}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:4px;border-top:4px solid var(--shield)}
+.tile.warn{border-top-color:var(--warn)} .tile.bad{border-top-color:var(--bad)} .tile.ok{border-top-color:var(--ok)}
+.tile .k{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.tile .v{font-family:var(--f-display);font-weight:800;font-size:2.6rem;line-height:1}
+.tile .s{font-size:.88rem;color:var(--muted)}
+
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:14px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font:inherit;font-size:.86rem;font-weight:600;padding:5px 12px;border-radius:99px;border:1px solid var(--grid-strong);background:var(--panel);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.94rem}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+td.num.low{color:var(--warn);font-weight:600} td.num.out{color:var(--bad);font-weight:600}
+.drv b{display:block}
+.drv span{font-size:.82rem;color:var(--muted)}
+.mini{display:inline-block;width:64px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;vertical-align:middle;margin-left:8px}
+.mini i{display:block;height:100%;background:var(--shield)}
+tr.sel{background:color-mix(in srgb,var(--shield) 8%,transparent)}
+tbody tr{cursor:pointer}
+
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.two>*{min-width:0}
+.ua{display:grid;gap:10px}
+.ua-item{border:1px solid var(--line);border-radius:4px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center}
+.ua-item .m{font-family:var(--f-mono);font-size:.85rem;color:var(--muted)}
+.ua-item select{font:inherit;font-size:.9rem;padding:6px 8px;border-radius:4px;border:1px solid var(--grid-strong);background:var(--panel);color:var(--ink)}
+.ua-item.done{opacity:.7}
+.ua-item .res{grid-column:1/-1;font-size:.88rem;color:var(--ok);font-weight:600}
+
+.bars{display:grid;gap:10px}
+.bar-row{display:grid;grid-template-columns:110px 1fr 70px;gap:10px;align-items:center;font-size:.92rem}
+.bar-row .track{height:14px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar-row .track i{display:block;height:100%;background:var(--shield)}
+.bar-row:first-child .track i{background:var(--accent)}
+.bar-row .n{font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+
+.detail{display:grid;gap:14px}
+.detail-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:baseline}
+</style>
+</head>
+<body>
+<div class="demo-banner">Demo with sample data. Every driver, truck and number on this page is made up.</div>
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <svg class="shield" viewBox="0 0 30 32" aria-hidden="true"><path d="M2 3c4 1 9 1 13-2 4 3 9 3 13 2 1 9 0 20-13 28C2 23 1 12 2 3z" fill="var(--shield)"/><path d="M2.2 3c4 1 9 1 12.8-2 3.8 3 8.8 3 12.8 2l.1 4H2.1z" fill="var(--accent)"/><text x="15" y="23" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="11" fill="#fff">ELD</text></svg>
+      ELD<b>Track</b>
+    </a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="driver.html">Driver app demo</a></li>
+      <li><a href="portal.html" aria-current="page">Fleet portal demo</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+    </ul>
+    <a class="btn" href="index.html#quote">Get a quote</a>
+  </div>
+  <div class="wrap demo-tabs">
+    <a href="index.html">Home</a><a href="driver.html">Driver app</a><a href="portal.html" aria-current="page">Fleet portal</a><a href="index.html#pricing">Pricing</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="intro">
+    <div>
+      <span class="eyebrow">Fleet portal demo</span>
+      <h1>Smoky Ridge Freight</h1>
+      <span class="co">Sample fleet · 8 trucks · Nashville, TN · Today 3:40 PM</span>
+    </div>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h3>Drivers today</h3>
+      <div class="filters" role="group" aria-label="Filter drivers">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-f="drive">Driving</button>
+        <button class="chip" type="button" data-f="low">Low on hours</button>
+        <button class="chip" type="button" data-f="viol">Violations</button>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Driver</th><th>Status</th><th>Location</th><th>Drive left</th><th>Shift left</th><th>Cycle left</th><th>Alerts</th></tr></thead>
+        <tbody id="drivers"></tbody>
+      </table>
+    </div>
+    <p class="caption">Click a driver to see their log.</p>
+  </div>
+
+  <div class="panel detail" id="detail">
+    <div class="detail-head"><h3 id="d-name"></h3><span class="pill info" id="d-truck"></span></div>
+    <div class="gridwrap"><svg id="logsvg" viewBox="0 0 960 196" role="img" aria-label="Selected driver's 24-hour log"></svg></div>
+    <div class="clocks" id="clocks"></div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <div class="panel-head"><h3>Unassigned driving</h3><span class="pill warn" id="ua-count"></span></div>
+      <p class="caption">Miles driven with nobody logged in. Assign each one to a driver before an audit.</p>
+      <div class="ua" id="ua"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>IFTA miles this quarter</h3><span class="pill info" id="ifta-total"></span></div>
+      <div class="bars" id="ifta"></div>
+      <p class="caption">Miles by state from GPS, ready for the quarterly fuel tax return.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 ELDTrack · Demo with sample data</span>
+    <span class="lit">A product of <a href="https://www.litamerica.net" target="_blank" rel="noopener">LIT America</a></span>
+  </div>
+</footer>
+
+<script src="hos.js"></script>
+<script>
+(function(){
+  var E=window.ELDTrack, NOW=15.67, NAMES=["Off duty","Sleeper","Driving","On duty"], PC=["info","info","ok","warn"];
+  // Each driver: day segments, prior cycle hours, location
+  var D=[
+    {n:"Marcus Reed",t:"Truck 214",loc:"I-40 E near Cookeville, TN",prior:48,segs:[[0,5.5,1],[5.5,6,3],[6,10,2],[10,10.5,0],[10.5,13,2],[13,14,3],[14,null,2]]},
+    {n:"Dana Whitfield",t:"Truck 208",loc:"Memphis, TN (shipper)",prior:40,segs:[[0,6,0],[6,6.5,3],[6.5,11,2],[11,11.5,0],[11.5,13,2],[13,null,3]]},
+    {n:"Luis Ortega",t:"Truck 221",loc:"I-24 W near Clarksville, TN",prior:58,segs:[[0,3,1],[3,3.5,3],[3.5,7.5,2],[7.5,8,0],[8,12,2],[12,12.5,3],[12.5,null,2]]},
+    {n:"Tasha Monroe",t:"Truck 203",loc:"Knoxville, TN (home)",prior:30,segs:[[0,null,0]]},
+    {n:"Ray Bishop",t:"Truck 217",loc:"I-75 S near Cleveland, TN",prior:52,segs:[[0,4,1],[4,4.5,3],[4.5,12.6,2],[12.6,13.5,3],[13.5,null,2]]},
+    {n:"Kevin Short",t:"Truck 210",loc:"Chattanooga, TN (truck stop)",prior:62,segs:[[0,2,1],[2,2.5,3],[2.5,6.5,2],[6.5,7,0],[7,11,2],[11,12,3],[12,null,1]]},
+    {n:"Angela Price",t:"Truck 225",loc:"I-65 N near Franklin, KY",prior:36,segs:[[0,7,0],[7,7.5,3],[7.5,11,2],[11,11.5,0],[11.5,null,2]]},
+    {n:"Jamal Hayes",t:"Truck 212",loc:"Nashville, TN (yard)",prior:44,segs:[[0,6,0],[6,null,3]]}
+  ];
+  D.forEach(function(d){
+    d.segs=d.segs.map(function(s){return{s:s[0],e:s[1],row:s[2]};});
+    d.res=E.calc(d.segs,NOW,d.prior);
+    d.row=d.segs[d.segs.length-1].row;
+    d.viol=d.res.canDrive<0&&d.row===2;
+    d.low=!d.viol&&d.res.canDrive<=1.5&&d.res.cycle>0;
+  });
+
+  function cls(v){return v<=0?" out":v<=1.5?" low":"";}
+  function cell(v,max){var p=Math.max(0,Math.min(100,v/max*100));return '<td class="num'+cls(v)+'">'+E.fmt(v)+'<span class="mini"><i style="width:'+p+'%"></i></span></td>';}
+
+  // tiles
+  var driving=D.filter(function(d){return d.row===2;}).length;
+  var low=D.filter(function(d){return d.low;}).length, viol=D.filter(function(d){return d.viol;}).length;
+  var UA=[{id:1,truck:"Truck 208",when:"Yesterday 9:12 PM",mi:3.4,from:"Memphis yard",to:"Shell on Lamar Ave"},
+          {id:2,truck:"Truck 221",when:"Today 2:05 AM",mi:41.7,from:"Clarksville, TN",to:"Nashville, TN"},
+          {id:3,truck:"Truck 212",when:"Today 6:20 AM",mi:0.8,from:"Nashville yard",to:"Nashville yard"}];
+  function tiles(){
+    var open=UA.filter(function(u){return!u.done;}).length;
+    document.getElementById("tiles").innerHTML=
+      '<div class="tile ok"><span class="k">Driving now</span><span class="v">'+driving+'</span><span class="s">of '+D.length+' trucks</span></div>'+
+      '<div class="tile warn"><span class="k">Low on hours</span><span class="v">'+low+'</span><span class="s">under 1:30 left</span></div>'+
+      '<div class="tile bad"><span class="k">HOS violations</span><span class="v">'+viol+'</span><span class="s">need a call now</span></div>'+
+      '<div class="tile"><span class="k">Unassigned trips</span><span class="v">'+open+'</span><span class="s">waiting to assign</span></div>';
+    var c=document.getElementById("ua-count");c.textContent=open+" open";c.className="pill "+(open?"warn":"ok");
+  }
+
+  // drivers table
+  var filter="all",sel=0;
+  function rows(){
+    var h="";
+    D.forEach(function(d,i){
+      if(filter==="drive"&&d.row!==2)return;
+      if(filter==="low"&&!d.low)return;
+      if(filter==="viol"&&!d.viol)return;
+      var alert=d.viol?'<span class="pill bad">Over '+(d.res.brk<0?"break":d.res.drive<0?"11 hr":d.res.shift<0?"14 hr":"cycle")+'</span>':d.low?'<span class="pill warn">Low hours</span>':'<span class="pill ok">OK</span>';
+      h+='<tr data-i="'+i+'" class="'+(i===sel?"sel":"")+'" tabindex="0"><td class="drv"><b>'+d.n+'</b><span>'+d.t+'</span></td><td><span class="pill '+PC[d.row]+'">'+NAMES[d.row]+'</span></td><td>'+d.loc+'</td>'+
+        cell(d.res.drive,11)+cell(d.res.shift,14)+cell(d.res.cycle,70)+'<td>'+alert+'</td></tr>';
+    });
+    if(!h)h='<tr><td colspan="7" class="caption">No drivers match this filter.</td></tr>';
+    var tb=document.getElementById("drivers");tb.innerHTML=h;
+    tb.querySelectorAll("tr[data-i]").forEach(function(tr){
+      function pick(){sel=+tr.dataset.i;rows();detail();}
+      tr.addEventListener("click",pick);
+      tr.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();pick();}});
+    });
+  }
+  function detail(){
+    var d=D[sel];
+    document.getElementById("d-name").textContent=d.n+"'s log today";
+    document.getElementById("d-truck").textContent=d.t;
+    var r=E.drawGrid(document.getElementById("logsvg"),d.segs,NOW,{priorCycle:d.prior});
+    E.renderClocks(document.getElementById("clocks"),r);
+  }
+  document.querySelectorAll("[data-f]").forEach(function(b){b.addEventListener("click",function(){
+    filter=b.dataset.f;document.querySelectorAll("[data-f]").forEach(function(x){x.setAttribute("aria-pressed",String(x===b));});rows();});});
+
+  // unassigned
+  function ua(){
+    var opts='<option value="">Assign to…</option>'+D.map(function(d){return'<option>'+d.n+'</option>';}).join("")+'<option value="__yard">Yard move (no driver)</option>';
+    document.getElementById("ua").innerHTML=UA.map(function(u){
+      return '<div class="ua-item'+(u.done?" done":"")+'"><div><b>'+u.truck+' · '+u.mi.toFixed(1)+' mi</b><div class="m">'+u.when+' · '+u.from+' → '+u.to+'</div></div>'+
+        (u.done?'':'<select id="ua-'+u.id+'" data-id="'+u.id+'" aria-label="Assign trip for '+u.truck+'">'+opts+'</select>')+
+        (u.done?'<span class="res">'+u.done+'</span>':'')+'</div>';}).join("");
+    document.querySelectorAll("#ua select").forEach(function(s){s.addEventListener("change",function(){
+      if(!s.value)return;var u=UA.filter(function(x){return x.id===+s.dataset.id;})[0];
+      u.done=s.value==="__yard"?"Marked as a yard move":"Sent to "+s.value+" to accept";ua();tiles();});});
+  }
+
+  // IFTA
+  var IF=[["Tennessee",18420],["Kentucky",4310],["Arkansas",3875],["Georgia",3120],["Mississippi",2460],["Alabama",1985],["Virginia",940]];
+  var max=IF[0][1],tot=IF.reduce(function(a,b){return a+b[1];},0);
+  document.getElementById("ifta").innerHTML=IF.map(function(s){return'<div class="bar-row"><span>'+s[0]+'</span><span class="track"><i style="width:'+(s[1]/max*100)+'%"></i></span><span class="n">'+s[1].toLocaleString("en-US")+'</span></div>';}).join("");
+  document.getElementById("ifta-total").textContent=tot.toLocaleString("en-US")+" mi total";
+
+  tiles();rows();detail();ua();
+})();
+</script>
+</body>
+</html>

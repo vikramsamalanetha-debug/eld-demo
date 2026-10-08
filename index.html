@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ELDTrack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+section{padding-block:72px}
+.sec-head{display:grid;gap:12px;margin-bottom:36px}
+.hero{padding-block:52px 40px}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:36px}
+@media (min-width:980px){.hero-grid{grid-template-columns:.92fr 1.08fr;align-items:center}}
+.hero-copy{display:grid;gap:20px;align-content:start}
+.hero-copy h1 span{color:var(--accent)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.95rem}
+.trust b{color:var(--ink)}
+.logcard-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.logcard-head .eyebrow{color:var(--muted)}
+
+.rules{background:var(--ink);color:var(--paper);padding-block:34px}
+.rules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media (max-width:760px){.rules-grid{grid-template-columns:repeat(2,1fr)}}
+.rule .n{font-family:var(--f-display);font-weight:800;font-size:3rem;line-height:1}
+.rule .n small{font-size:1.2rem;margin-left:4px}
+.rule p{font-size:.95rem;opacity:.85;max-width:28ch}
+
+.tn{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+@media (max-width:860px){.tn{grid-template-columns:1fr}}
+.tn>*{min-width:0}
+.tn-map svg{width:100%;height:auto;display:block}
+.tn-points{display:grid;gap:14px;list-style:none;padding:0;margin:0}
+.tn-points li{display:grid;gap:2px;padding-left:14px;border-left:3px solid var(--accent)}
+.tn-points b{font-family:var(--f-display);font-size:1.25rem;text-transform:uppercase}
+.tn-points span{color:var(--muted)}
+
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media (max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.feat-grid{grid-template-columns:1fr}}
+.feat{background:var(--panel);padding:26px;display:grid;gap:10px;align-content:start;min-width:0}
+.feat .tag{font-family:var(--f-mono);font-size:.75rem;color:var(--shield);font-weight:600;letter-spacing:.06em}
+.feat p{color:var(--muted)}
+.feat a{font-weight:700}
+
+.demos{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.demos{grid-template-columns:1fr}}
+.demo{border:2px solid var(--ink);border-radius:6px;padding:26px;display:grid;gap:12px;background:var(--panel);text-decoration:none;color:var(--ink)}
+.demo:hover{border-color:var(--accent)}
+.demo p{color:var(--muted)}
+.demo .go{font-family:var(--f-display);font-weight:700;text-transform:uppercase;color:var(--accent);font-size:1.1rem}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:800px){.steps{grid-template-columns:1fr}}
+.step{display:grid;gap:10px;padding-top:18px;border-top:3px solid var(--ink)}
+.step .no{font-family:var(--f-display);font-weight:800;font-size:2.4rem;color:var(--accent);line-height:1}
+.step p{color:var(--muted)}
+
+.inspect{background:var(--panel);border-block:1px solid var(--line)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.split>*{min-width:0}
+.stack{display:grid;gap:18px}
+.methods{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.method{border:1px solid var(--line);border-radius:4px;padding:16px;display:grid;gap:4px;background:var(--paper)}
+.method b{font-family:var(--f-display);font-size:1.3rem;text-transform:uppercase}
+.method span{font-size:.9rem;color:var(--muted)}
+.checklist{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.checklist li{display:grid;grid-template-columns:22px 1fr;gap:10px}
+.checklist li::before{content:"";width:16px;height:16px;margin-top:4px;border:2px solid var(--shield);border-radius:3px;background:linear-gradient(var(--shield),var(--shield)) center/8px 8px no-repeat}
+.checklist li.off::before{background:none;border-color:var(--muted)}
+.checklist li.off{color:var(--muted)}
+.codes{font-family:var(--f-mono);font-size:.85rem;display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.codes span{border:1px solid var(--grid-strong);padding:2px 8px;border-radius:3px}
+
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:26px;display:grid;gap:14px;align-content:start}
+.plan.pick{border:2px solid var(--accent)}
+.plan .who{color:var(--muted);font-size:.95rem}
+.plan .price{font-family:var(--f-display);font-weight:800;font-size:3.2rem;line-height:1}
+.plan .price small{font-family:var(--f-body);font-size:1rem;font-weight:400;color:var(--muted)}
+.plan ul{margin:0;padding-left:18px;display:grid;gap:6px;color:var(--muted)}
+.badge{justify-self:start;font-family:var(--f-mono);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--on-accent);padding:3px 8px;border-radius:3px}
+.fine{font-size:.85rem;color:var(--muted);margin-top:16px}
+
+.faq{display:grid;border-top:1px solid var(--line);max-width:820px}
+details{border-bottom:1px solid var(--line);padding-block:16px}
+summary{cursor:pointer;font-weight:700;font-size:1.1rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-mono);color:var(--accent)}
+details[open] summary::after{content:"−"}
+details p{margin-top:10px;color:var(--muted);max-width:68ch}
+
+.quote{background:var(--ink);color:var(--paper)}
+.quote .lede{color:color-mix(in srgb,var(--paper) 78%,transparent)}
+.contact{display:grid;gap:8px;margin-top:6px}
+.contact div{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+.contact .k{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7;min-width:56px}
+.contact .v{font-family:var(--f-mono);font-size:1.05rem;user-select:all}
+.copy{font:inherit;font-size:.78rem;background:transparent;color:var(--paper);border:1px solid color-mix(in srgb,var(--paper) 40%,transparent);border-radius:3px;padding:1px 8px;cursor:pointer}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:600px){form{grid-template-columns:1fr}}
+form .full{grid-column:1/-1}
+label{display:grid;gap:6px;font-weight:600;font-size:.95rem}
+.quote input,.quote select{font:inherit;padding:11px 12px;border-radius:4px;border:1px solid color-mix(in srgb,var(--paper) 30%,transparent);background:color-mix(in srgb,var(--paper) 8%,transparent);color:var(--paper)}
+.quote select option{color:#13233f;background:#fff}
+.done{grid-column:1/-1;border:1px solid var(--ok);padding:14px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">Demo site with sample data. Try the <a href="driver.html">driver app</a> and the <a href="portal.html">fleet portal</a>.</div>
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <svg class="shield" viewBox="0 0 30 32" aria-hidden="true"><path d="M2 3c4 1 9 1 13-2 4 3 9 3 13 2 1 9 0 20-13 28C2 23 1 12 2 3z" fill="var(--shield)"/><path d="M2.2 3c4 1 9 1 12.8-2 3.8 3 8.8 3 12.8 2l.1 4H2.1z" fill="var(--accent)"/><text x="15" y="23" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="11" fill="#fff">ELD</text></svg>
+      ELD<b>Track</b>
+    </a>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="driver.html">Driver app demo</a></li>
+      <li><a href="portal.html">Fleet portal demo</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn" href="#quote">Get a quote</a>
+  </div>
+  <div class="wrap demo-tabs">
+    <a href="index.html" aria-current="page">Home</a><a href="driver.html">Driver app</a><a href="portal.html">Fleet portal</a><a href="#pricing">Pricing</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Electronic logs for Tennessee fleets</span>
+        <h1>Run legal. <span>Log less.</span></h1>
+        <p class="lede">ELDTrack plugs into your truck, logs driving time on its own, and shows every Hours of Service clock before it runs out. Built for small fleets running I-40, I-24 and I-65 out of Memphis, Nashville, Knoxville and Chattanooga.</p>
+        <div class="cta-row">
+          <a class="btn" href="#quote">Get a quote</a>
+          <a class="btn ghost" href="driver.html">Try the driver app</a>
+        </div>
+        <div class="trust">
+          <span><b>Built to</b> 49 CFR Part 395</span>
+          <span><b>Month to month</b>, no contract</span>
+          <span><b>Tennessee</b>-based support</span>
+        </div>
+      </div>
+      <div class="logcard" aria-label="Sample driver log">
+        <div class="logcard-head">
+          <span class="eyebrow">Driver's daily log · sample day</span>
+          <span class="pill ok">● OFF DUTY · 5:00 PM</span>
+        </div>
+        <div class="gridwrap"><svg id="logsvg" viewBox="0 0 960 196" role="img" aria-label="24-hour duty status graph for a sample day"></svg></div>
+        <div class="clocks" id="clocks"></div>
+        <p class="caption">HOS clocks recalculate with every status change. Sample data.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rules">
+    <div class="wrap rules-grid">
+      <div class="rule"><div class="n">11<small>HRS</small></div><p>Driving limit after 10 consecutive hours off duty</p></div>
+      <div class="rule"><div class="n">14<small>HRS</small></div><p>Workday window. Breaks don't stop this clock</p></div>
+      <div class="rule"><div class="n">30<small>MIN</small></div><p>Break required after 8 hours of driving</p></div>
+      <div class="rule"><div class="n">60/70<small>HRS</small></div><p>In 7/8 days. A 34-hour restart resets the cycle</p></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap tn">
+      <div class="stack">
+        <span class="eyebrow">Made for Tennessee</span>
+        <h2>A small-fleet ELD from people who know your routes</h2>
+        <p class="lede">Big ELD brands are built for fleets with hundreds of trucks. ELDTrack is set up for carriers running 2 to 50 trucks, with a person you can call when a device acts up at a scale house on I-40.</p>
+        <ul class="tn-points">
+          <li><b>Real phone support</b><span>Call or text a Tennessee number. No ticket queue.</span></li>
+          <li><b>Pricing that fits a small fleet</b><span>Pay per truck, month to month. Add or remove trucks anytime.</span></li>
+          <li><b>Setup help</b><span>We walk your drivers through install and their first inspection.</span></li>
+        </ul>
+      </div>
+      <div class="tn-map" aria-label="Tennessee interstate map, simplified">
+        <svg viewBox="0 0 520 200" role="img" aria-label="Simplified Tennessee map with Memphis, Nashville, Knoxville and Chattanooga on the interstates">
+          <path d="M14 70 L32 52 L470 34 L506 30 L496 52 L470 70 L452 96 L430 116 L424 150 L22 166 L30 140 L18 116 Z" fill="var(--panel)" stroke="var(--grid-strong)" stroke-width="2"/>
+          <path d="M40 140 L130 110 L260 92 L380 84 L452 70" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/>
+          <path d="M260 92 L330 150" fill="none" stroke="var(--shield)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M260 92 L262 40 M260 92 L250 160" fill="none" stroke="var(--shield)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 0"/>
+          <path d="M380 84 L330 150" fill="none" stroke="var(--shield)" stroke-width="3" stroke-linecap="round"/>
+          <g font-family="IBM Plex Mono,monospace" font-size="12" font-weight="600" fill="var(--ink)">
+            <circle cx="40" cy="140" r="6" fill="var(--accent)"/><text x="50" y="158">MEMPHIS</text>
+            <circle cx="260" cy="92" r="6" fill="var(--accent)"/><text x="186" y="80">NASHVILLE</text>
+            <circle cx="380" cy="84" r="6" fill="var(--accent)"/><text x="350" y="72">KNOXVILLE</text>
+            <circle cx="330" cy="150" r="6" fill="var(--accent)"/><text x="296" y="172">CHATTANOOGA</text>
+          </g>
+          <g font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="13" fill="var(--accent)"><text x="150" y="102">I-40</text><text x="300" y="130" fill="var(--shield)">I-24</text><text x="266" y="56" fill="var(--shield)">I-65</text><text x="360" y="124" fill="var(--shield)">I-75</text></g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">What you get</span>
+        <h2>Everything the paper logbook did, done for you</h2>
+      </div>
+      <div class="feat-grid">
+        <div class="feat"><span class="tag">DRIVER APP</span><h3>Automatic duty status</h3><p>Driving starts on its own once the truck rolls. Switch between Off Duty, Sleeper Berth and On Duty with one tap. Personal Conveyance and Yard Moves included.</p></div>
+        <div class="feat"><span class="tag">DRIVER APP</span><h3>Violation warnings</h3><p>Alerts before the 11-hour, 14-hour, break and cycle limits run out, so drivers plan their stops instead of getting caught.</p></div>
+        <div class="feat"><span class="tag">DRIVER APP</span><h3>Electronic DVIR</h3><p>Pre-trip and post-trip inspections on the phone, with photos of defects and mechanic sign-off.</p></div>
+        <div class="feat"><span class="tag">FLEET PORTAL</span><h3>Every truck at a glance</h3><p>Who's driving, where they are, and how many hours each driver has left today. <a href="portal.html">See the portal demo</a></p></div>
+        <div class="feat"><span class="tag">FLEET PORTAL</span><h3>Unassigned driving</h3><p>Every mile driven without a login lands in one list. Assign it to a driver or add a note before an auditor asks.</p></div>
+        <div class="feat"><span class="tag">FLEET PORTAL</span><h3>IFTA miles by state</h3><p>Miles in Tennessee, Kentucky, Arkansas, Georgia and every other state, ready for your quarterly fuel tax filing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">See it work</span>
+        <h2>Try ELDTrack right now</h2>
+      </div>
+      <div class="demos">
+        <a class="demo" href="driver.html"><span class="eyebrow">For drivers</span><h3>Driver app demo</h3><p>Tap Driving, Off Duty or Sleeper and watch the log grid and HOS clocks update. Try inspection mode.</p><span class="go">Open driver app →</span></a>
+        <a class="demo" href="portal.html"><span class="eyebrow">For the office</span><h3>Fleet portal demo</h3><p>See a sample Tennessee fleet: hours left per driver, violations, unassigned driving and IFTA miles.</p><span class="go">Open fleet portal →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Setup</span>
+        <h2>On the road in 15 minutes</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="no">1</span><h3>Plug in the device</h3><p>The ELDTrack box fits the truck's diagnostic port and reads engine hours, speed and miles from the engine computer.</p></div>
+        <div class="step"><span class="no">2</span><h3>Pair the app</h3><p>Install the app on any Android or iPhone, log in, and it connects to the device over Bluetooth.</p></div>
+        <div class="step"><span class="no">3</span><h3>Drive</h3><p>Logs build themselves. Drivers certify each day with a tap, and the office sees everything in the portal.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="inspect" id="inspection">
+    <div class="wrap split">
+      <div class="stack">
+        <span class="eyebrow">Roadside inspection</span>
+        <h2>Hand the officer your logs in seconds</h2>
+        <p class="lede">Inspection mode shows today plus the previous 7 days, then sends the official ELD file by whichever method the officer asks for.</p>
+        <div class="methods">
+          <div class="method"><b>Web services</b><span>Straight to FMCSA</span></div>
+          <div class="method"><b>Email</b><span>Official ELD file</span></div>
+          <div class="method"><b>Bluetooth</b><span>Local transfer</span></div>
+          <div class="method"><b>USB</b><span>Local transfer</span></div>
+        </div>
+      </div>
+      <div class="stack">
+        <h3>What must be in the cab</h3>
+        <ul class="checklist">
+          <li>Data transfer instruction sheet. We ship one with every device.</li>
+          <li>Malfunction instruction sheet, so the driver knows to switch to paper and notify the carrier.</li>
+          <li>8 days of blank paper logs as backup.</li>
+          <li class="off">ELD operator's manual. No longer required in the cab since July 22, 2026.</li>
+        </ul>
+        <div>
+          <p class="caption">The device checks itself and shows standard malfunction codes:</p>
+          <div class="codes"><span>P Power</span><span>E Engine sync</span><span>T Timing</span><span>L Position</span><span>R Recording</span><span>S Transfer</span><span>O Other</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Pricing</span>
+        <h2>Per truck, per month. No contract.</h2>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Starter</h3>
+          <p class="who">For owner-operators with 1 truck</p>
+          <div class="price">$25<small> /truck/mo</small></div>
+          <ul><li>Driver app with HOS clocks</li><li>Roadside inspection mode</li><li>Electronic DVIR</li><li>Device included</li></ul>
+          <a class="btn ghost" href="#quote" data-plan="Starter">Choose Starter</a>
+        </div>
+        <div class="plan pick">
+          <span class="badge">Best for small fleets</span>
+          <h3>Fleet</h3>
+          <p class="who">For 2 to 20 trucks</p>
+          <div class="price">$35<small> /truck/mo</small></div>
+          <ul><li>Everything in Starter</li><li>Fleet portal with all drivers' hours</li><li>Unassigned driving list</li><li>IFTA miles by state</li></ul>
+          <a class="btn" href="#quote" data-plan="Fleet">Choose Fleet</a>
+        </div>
+        <div class="plan">
+          <h3>Fleet Plus</h3>
+          <p class="who">For 20 to 50 trucks</p>
+          <div class="price">$45<small> /truck/mo</small></div>
+          <ul><li>Everything in Fleet</li><li>Driver messaging and documents</li><li>Audit-ready export packages</li><li>Priority 24/7 phone support</li></ul>
+          <a class="btn ghost" href="#quote" data-plan="Fleet Plus">Choose Fleet Plus</a>
+        </div>
+      </div>
+      <p class="fine">Sample prices for this demo, based on typical ELD pricing in 2026.</p>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Questions</span>
+        <h2>What drivers ask us</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Do I need an ELD?</summary><p>Most CDL drivers who cross state lines and have to keep logs do. You may not need one if you stay within 150 air miles of your home terminal and work 14 hours or less, need logs 8 days or fewer in any 30 days, do driveaway-towaway work, or drive a truck with an engine older than model year 2000.</p></details>
+        <details><summary>I only drive inside Tennessee. Do I still need one?</summary><p>Rules for carriers that never leave the state are set by the state and can differ from the federal ones. Call us with your situation and we'll help you work out what applies to you.</p></details>
+        <details><summary>What do I do when an officer asks for my logs?</summary><p>Tap Inspection Mode. The officer sees today and the last 7 days on your screen, and you can send the official file by web services, email, Bluetooth or USB, whichever they ask for.</p></details>
+        <details><summary>What happens if the device stops working?</summary><p>The app shows a malfunction code. Switch to paper logs, tell your carrier, and the device has to be fixed or replaced within 8 days. We ship a replacement the next business day.</p></details>
+        <details><summary>Can I fix a mistake in my log?</summary><p>Yes. You can edit your status and add a note explaining why. Driving time recorded by the engine can't be deleted, and the original record is always kept. If the office suggests an edit, you approve or reject it.</p></details>
+        <details><summary>Can I use the truck for personal errands after work?</summary><p>Yes. Set your status to Personal Conveyance before you drive. That time isn't counted as driving, as long as you're truly off duty and not moving a load.</p></details>
+        <details><summary>Does it work where there's no cell signal?</summary><p>Yes. The device keeps recording with no signal. Logs sync to the office as soon as the phone reconnects.</p></details>
+        <details><summary>Does it work for team drivers?</summary><p>Yes. Both drivers log in on the same device and each keeps a separate log. Switching the active driver takes one tap.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote" id="quote">
+    <div class="wrap split">
+      <div class="stack">
+        <span class="eyebrow">Get started</span>
+        <h2>Get a quote for your trucks</h2>
+        <p class="lede">Tell us about your operation and we'll call you back within one business day with pricing and a ship date.</p>
+        <div class="contact">
+          <div><span class="k">Contact</span><span class="v">Vikram</span></div>
+          <div><span class="k">Phone</span><span class="v" id="c-phone">(615) 456-6788</span><button class="copy" type="button" data-copy="c-phone">Copy</button></div>
+          <div><span class="k">Email</span><span class="v" id="c-email">samala_netha@gmail.com</span><button class="copy" type="button" data-copy="c-email">Copy</button></div>
+        </div>
+      </div>
+      <form id="qform" novalidate>
+        <label>Name<input id="q-name" name="name" autocomplete="name"></label>
+        <label>Company<input id="q-co" name="company" autocomplete="organization"></label>
+        <label>Phone<input id="q-phone" name="phone" type="tel" autocomplete="tel"></label>
+        <label>USDOT number<input id="q-dot" name="dot" inputmode="numeric"></label>
+        <label>Number of trucks
+          <select id="q-trucks" name="trucks"><option>1</option><option>2–5</option><option>6–20</option><option>21–50</option></select>
+        </label>
+        <label>Plan
+          <select id="q-plan" name="plan"><option>Starter</option><option selected>Fleet</option><option>Fleet Plus</option></select>
+        </label>
+        <div class="full"><button class="btn" type="submit">Request my quote</button></div>
+        <p class="done full" id="qdone" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 ELDTrack · Demo site with sample data</span>
+    <span class="lit">A product of <a href="https://www.litamerica.net" target="_blank" rel="noopener">LIT America</a></span>
+  </div>
+</footer>
+
+<script src="hos.js"></script>
+<script>
+(function(){
+  var day=[{s:0,e:5.5,row:1},{s:5.5,e:6,row:3},{s:6,e:10,row:2},{s:10,e:10.5,row:0},{s:10.5,e:14.5,row:2},{s:14.5,e:15.5,row:3},{s:15.5,e:17,row:2},{s:17,e:null,row:0}];
+  var res=ELDTrack.drawGrid(document.getElementById("logsvg"),day,17,{animate:true,priorCycle:48});
+  ELDTrack.renderClocks(document.getElementById("clocks"),res);
+
+  document.querySelectorAll("[data-plan]").forEach(function(a){a.addEventListener("click",function(){document.getElementById("q-plan").value=a.getAttribute("data-plan");});});
+
+  document.querySelectorAll(".copy").forEach(function(b){b.addEventListener("click",function(){
+    var el=document.getElementById(b.getAttribute("data-copy")),t=el.textContent;
+    function sel(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);}
+    try{navigator.clipboard.writeText(t).then(function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy";},1500);},sel);}catch(e){sel();}
+  });});
+
+  var f=document.getElementById("qform"),done=document.getElementById("qdone");
+  f.addEventListener("submit",function(e){e.preventDefault();
+    var n=document.getElementById("q-name").value.trim(),p=document.getElementById("q-phone").value.trim();
+    done.hidden=false;
+    if(!n||!p){done.style.borderColor="var(--warn)";done.textContent="Add your name and phone number so we can call you back.";return;}
+    done.style.borderColor="var(--ok)";
+    done.textContent="Thanks, "+n+". Your quote request for "+document.getElementById("q-trucks").value+" truck(s) on the "+document.getElementById("q-plan").value+" plan is ready. This is a demo form, so nothing was sent.";
+  });
+})();
+</script>
+</body>
+</html>
