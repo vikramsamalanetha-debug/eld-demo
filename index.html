@@ -46,8 +46,8 @@ section{padding-block:72px}
 .feat p{color:var(--muted)}
 .feat a{font-weight:700}
 
-.demos{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media (max-width:760px){.demos{grid-template-columns:1fr}}
+.demos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.demos{grid-template-columns:1fr}}
 .demo{border:2px solid var(--ink);border-radius:6px;padding:26px;display:grid;gap:12px;background:var(--panel);text-decoration:none;color:var(--ink)}
 .demo:hover{border-color:var(--accent)}
 .demo p{color:var(--muted)}
@@ -124,13 +124,14 @@ label{display:grid;gap:6px;font-weight:600;font-size:.95rem}
       <li><a href="#features">Features</a></li>
       <li><a href="driver.html">Driver app demo</a></li>
       <li><a href="portal.html">Fleet portal demo</a></li>
+      <li><a href="app.html">Get the app</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <a class="btn" href="#quote">Get a quote</a>
   </div>
   <div class="wrap demo-tabs">
-    <a href="index.html" aria-current="page">Home</a><a href="driver.html">Driver app</a><a href="portal.html">Fleet portal</a><a href="#pricing">Pricing</a>
+    <a href="index.html" aria-current="page">Home</a><a href="driver.html">Driver app</a><a href="portal.html">Fleet portal</a><a href="app.html">Get the app</a><a href="#pricing">Pricing</a>
   </div>
 </header>
 
@@ -229,6 +230,7 @@ label{display:grid;gap:6px;font-weight:600;font-size:.95rem}
       <div class="demos">
         <a class="demo" href="driver.html"><span class="eyebrow">For drivers</span><h3>Driver app demo</h3><p>Tap Driving, Off Duty or Sleeper and watch the log grid and HOS clocks update. Try inspection mode.</p><span class="go">Open driver app →</span></a>
         <a class="demo" href="portal.html"><span class="eyebrow">For the office</span><h3>Fleet portal demo</h3><p>See a sample Tennessee fleet: hours left per driver, violations, unassigned driving and IFTA miles.</p><span class="go">Open fleet portal →</span></a>
+        <a class="demo" href="app.html"><span class="eyebrow">Android app</span><h3>Install the driver app</h3><p>Open on an Android phone in Chrome and tap Install. ELDTrack gets its own icon and works without signal.</p><span class="go">Open the app →</span></a>
       </div>
     </div>
   </section>
